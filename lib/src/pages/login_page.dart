@@ -20,7 +20,7 @@ class _LoginPage extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Login to your account"),
+      appBar: CustomAppBar(title: "Inicia sesion con tu cuenta"),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         child: Form(
@@ -38,13 +38,13 @@ class _LoginPage extends State<LoginPage> {
                   bool emailValid = RegExp(
                           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                       .hasMatch(email);
-                  return emailValid ? null : "Email is not valid";
+                  return emailValid ? null : "Email no valido";
                 },
               ),
               SizedBox(height: 24),
               CustomInputField(
                 keyboardType: TextInputType.visiblePassword,
-                hintText: "Password",
+                hintText: "clave secreta",
                 obscureText: true,
                 controller: _passwordController,
                 validator: (String? password) {
@@ -52,20 +52,20 @@ class _LoginPage extends State<LoginPage> {
                     return null;
                   }
                   if (password.length < 6) {
-                    return "Password is too short";
+                    return "clave secreta es  corta";
                   }
                 },
               ),
               SizedBox(height: 24),
               CustomCheckbox(
-                labelText: "Remember me",
+                labelText: "Recordar",
                 value: _rememberMeChecked,
                 onChanged: (checked) =>
                     setState(() => _rememberMeChecked = checked ?? false),
               ),
               SizedBox(height: 24),
               ElevatedButton(
-                child: Text("Login"),
+                child: Text("Iniciar"),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     FirebaseAuth.instance
@@ -80,14 +80,13 @@ class _LoginPage extends State<LoginPage> {
                       if (exception is FirebaseAuthException) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                              content:
-                                  Text('Failed to auth: ${exception.message}')),
+                              content: Text(
+                                  'Failed to auth: ${exception.message} ')),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                              content:
-                                  Text('Unhandled auth error ${exception}')),
+                              content: Text('Unhandled auth error $exception')),
                         );
                       }
                     });
@@ -102,13 +101,13 @@ class _LoginPage extends State<LoginPage> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    "Don't have an account",
+                    "No tiene cuenta ?",
                     style: TextStyle(
                       color: Color(0xFFb8b8b8),
                     ),
                   ),
                   TextButton(
-                    child: Text("Register"),
+                    child: Text("Registrate"),
                     onPressed: () =>
                         {Navigator.of(context).pushNamed("/register")},
                   ),

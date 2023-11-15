@@ -21,7 +21,7 @@ class _RegisterPage extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Register new account"),
+      appBar: CustomAppBar(title: "Registre su cuenta"),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         child: Form(
@@ -45,7 +45,7 @@ class _RegisterPage extends State<RegisterPage> {
               SizedBox(height: 24),
               CustomInputField(
                 keyboardType: TextInputType.visiblePassword,
-                hintText: "Password",
+                hintText: "clave secreta",
                 obscureText: true,
                 controller: _passwordController,
                 validator: (String? password) {
@@ -53,14 +53,14 @@ class _RegisterPage extends State<RegisterPage> {
                     return null;
                   }
                   if (password.length < 6) {
-                    return "Password is too short";
+                    return "clave secreta es corta";
                   }
                 },
               ),
               SizedBox(height: 24),
               CustomInputField(
                 keyboardType: TextInputType.visiblePassword,
-                hintText: "Password Confirmation",
+                hintText: "clave secreta confirme",
                 obscureText: true,
                 controller: _passwordConfirmationController,
                 validator: (String? password) {
@@ -68,7 +68,7 @@ class _RegisterPage extends State<RegisterPage> {
                     return null;
                   }
                   if (password != _passwordConfirmationController.value.text) {
-                    return "Password is not confirmed";
+                    return "clave secreta no es igual";
                   }
                 },
               ),
@@ -80,14 +80,14 @@ class _RegisterPage extends State<RegisterPage> {
                     Padding(
                       padding: EdgeInsets.only(left: 8),
                       child: Text(
-                        "By creating an account you agree to our",
+                        "Al crear una cuenta tu aceptas nuestros",
                         style: TextStyle(
                           color: Color(0xFFa8a8a7),
                         ),
                       ),
                     ),
                     TextButton(
-                      child: Text('Terms & Conditions'),
+                      child: Text('Terminos & Condiciones'),
                       onPressed: () {
                         print("// Terms & Conditions");
                       },
@@ -100,7 +100,7 @@ class _RegisterPage extends State<RegisterPage> {
               ),
               SizedBox(height: 24),
               ElevatedButton(
-                child: Text("Register"),
+                child: Text("Registrar"),
                 onPressed: !_agreeWithTermsAndConditions
                     ? null
                     : () {
@@ -139,13 +139,13 @@ class _RegisterPage extends State<RegisterPage> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    "Already have an account?",
+                    "Ya tienes una cuenta?",
                     style: TextStyle(
                       color: Color(0xFFb8b8b8),
                     ),
                   ),
                   TextButton(
-                    child: Text("Login"),
+                    child: Text("Inicia Sesion"),
                     onPressed: () =>
                         {Navigator.of(context).pushNamed("/login")},
                   ),

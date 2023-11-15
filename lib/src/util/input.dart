@@ -9,6 +9,7 @@ class CustomInputField extends StatefulWidget {
   final FormFieldValidator<String>? validator;
 
   const CustomInputField({
+    super.key,
     this.controller,
     this.initialValue,
     this.keyboardType,
@@ -47,7 +48,7 @@ class _CustomInputFieldState extends State<CustomInputField> {
         obscureText: _obscure,
         obscuringCharacter: '*',
         validator: widget.validator,
-        decoration: new InputDecoration(
+        decoration: InputDecoration(
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
@@ -86,6 +87,7 @@ class CustomCheckbox extends StatelessWidget {
   final String? labelText;
   final Widget? label;
   const CustomCheckbox({
+    super.key,
     this.value = false,
     required this.onChanged,
     this.labelText,
