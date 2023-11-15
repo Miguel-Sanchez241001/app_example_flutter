@@ -2,7 +2,6 @@
 
 import 'package:appinventario/src/pages/login_page.dart';
 import 'package:appinventario/src/pages/splash_page.dart';
-import 'package:appinventario/src/util/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -10,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 
+import 'firebase_options.dart';
 import 'src/pages/main_page.dart';
 import 'src/pages/register_page.dart';
 

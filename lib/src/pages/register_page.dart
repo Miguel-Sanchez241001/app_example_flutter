@@ -111,6 +111,10 @@ class _RegisterPage extends State<RegisterPage> {
                             password: _passwordController.value.text,
                           )
                               .then((result) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text('Cuenta Creada con exito')),
+                            );
                             Navigator.of(context)
                                 .pushNamedAndRemoveUntil('/main', (_) => false);
                           }).catchError((Object exception) {
