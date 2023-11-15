@@ -1,9 +1,36 @@
+// ignore_for_file: depend_on_referenced_packages
+
+import 'package:appinventario/src/pages/login_page.dart';
+import 'package:appinventario/src/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 
-void main() {
+import 'firebase_options.dart';
+import 'src/pages/main_page.dart';
+import 'src/pages/register_page.dart';
+
+FirebaseAnalytics? analytics;
+
+FirebaseAnalyticsObserver? observer;
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  FirebaseApp app = await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  if (kIsWeb) {
+    await FirebaseAuth.instanceFor(app: app).setPersistence(Persistence.LOCAL);
+  }
+  analytics = FirebaseAnalytics.instanceFor(app: app);
+
   runApp(const MyApp());
 }
+
+const mainColor = Color(0xFF4672ff);
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -36,19 +63,44 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
+        primarySwatch: Colors.blue,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(mainColor),
+            minimumSize: MaterialStateProperty.all(
+              const Size.fromHeight(60),
+            ),
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0),
+              ),
+            ),
+          ),
+        ),
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
       ),
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics!),
+      ],
       themeMode: _themeMode,
-      home: MyHomePage(
-        title: 'Material 3 Demo',
-        useLightMode: useLightMode,
-        handleBrightnessChange: (useLightMode) => setState(() {
-          _themeMode = useLightMode ? ThemeMode.light : ThemeMode.dark;
-        }),
-      ),
+      initialRoute: '/',
+      routes: {
+        // '/': (context) => MyHomePage(
+        //       title: 'Material 3 demooooooooo',
+        //       useLightMode: useLightMode,
+        //       handleBrightnessChange: (useLightMode) => setState(() {
+        //         _themeMode = useLightMode ? ThemeMode.light : ThemeMode.dark;
+        //       }),
+        //     ),
+        '/': (context) => SplashPage(),
+
+        '/login': (context) => LoginPage(),
+        '/main': (context) => MainPage(),
+        '/register': (context) => RegisterPage(),
+      },
     );
   }
 }
@@ -70,7 +122,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-
   void _incrementCounter() {
     setState(() {
       _counter++;
@@ -93,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times:',
+              'Numeros times:',
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             Text(
